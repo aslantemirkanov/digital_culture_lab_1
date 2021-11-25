@@ -4,12 +4,10 @@
 
 int conversion_date_to_sec(char *date) {
     long int second = 0;
-    //время с начала месяца
     second += ((date[0] - 48) * 10 + (date[1] - 48) - 1) * 86400;
     second += ((date[12] - 48) * 10 + (date[13] - 48)) * 3600;
     second += ((date[15] - 48) * 10 + (date[16] - 48)) * 60;
     second += (date[18] - 48) * 10 + date[19] - 48;
-    //время с начала года до начала месяца
     if (date[3] == 'F' && date[4] == 'e' && date[5] == 'b') {
         second += 2678400;
     } else if (date[3] == 'M' && date[4] == 'a' && date[5] == 'r') {
@@ -104,7 +102,7 @@ void str_print(int first, int last, int max_len, int time_window) {
 void max_time_window_request(int time_window, int str_count) {
     FILE *file_input;
     file_input = fopen("access_log_Jul95.txt", "r");
-    int *times_in_second = (long *) (long) malloc(sizeof(long) * str_count);
+    long *times_in_second = malloc(sizeof(long) * str_count);
     long int index = 0;
     char str[500];
     char *str_pointer;
@@ -154,11 +152,11 @@ void max_time_window_request(int time_window, int str_count) {
     free(times_in_second);
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     int str_count = errors_count();
-    int time_window;
-    printf("Input time window in seconds:\n");
-    scanf("%d", &time_window);
+    int time_window=atoi(argv[1]);
+    printf("%d\n",time_window);
     max_time_window_request(time_window, str_count);
+    printf("Program finished");
     return 0;
 }
