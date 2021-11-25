@@ -101,6 +101,10 @@ void str_print(int first, int last, int max_len, int time_window) {
     fclose(file_output);
 }
 
+void conver_to_year(int year){
+    return year * 365;
+}
+
 void max_time_window_request(int time_window, int str_count) {
     FILE *file_input;
     file_input = fopen("access_log_Jul95.txt", "r");
